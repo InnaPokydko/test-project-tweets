@@ -1,113 +1,35 @@
 # React homework template
 
-Этот проект был создан при помощи
-[Create React App](https://github.com/facebook/create-react-app). Для знакомства
-и настройки дополнительных возможностей
-[обратись к документации](https://facebook.github.io/create-react-app/docs/getting-started).
+This project was created with
+[Create React App](https://github.com/facebook/create-react-app). For acquaintance
+and advanced settings
+[refer to documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-## Создание репозитория по шаблону
+# Test Project Tweets
 
-Используй этот репозиторий организации GoIT как шаблон для создания репозитория
-своего проекта. Для этого нажми на кнопку `«Use this template»` и выбери опцию
-`«Create a new repository»`, как показано на изображении.
+This project implements the display of user cards with the ability to follow/unfollow users. It utilizes React, Redux Toolkit, RTK Query, and React Router.
 
-![Creating repo from a template step 1](./assets/template-step-1.png)
+## Task Overview
 
-На следующем шаге откроется страница создания нового репозитория. Заполни поле
-его имени, убедись что репозиторий публичный, после чего нажми кнопку
-`«Create repository from template»`.
+-Display a list of user cards with user information. -Each card includes user details, follower count, and a "Follow" button to follow/unfollow the user. -When the "Follow" button is clicked, the button text changes to "Following" and the button color changes. The follower count increases by 1. -When the page is refreshed, the changes should persist. -The button should remain in the "Following" state with the corresponding color, and the follower count should not reset to the initial value. -When the "Follow" button is clicked again, the button text and color revert to their original state. The follower count decreases by 1. -The number 100,500 should be represented as a single value (100500) in the code, but displayed with a comma (100,500) in the UI. -Create a custom backend for development using the mockapi.io UI service. -Create a "users" resource with user objects as described below.
 
-![Creating repo from a template step 2](./assets/template-step-2.png)
+## Routing
 
-После того как репозиторий будет создан, необходимо перейти в настройки
-созданного репозитория на вкладку `Settings` > `Actions` > `General` как
-показано на изображении.
+Implement routing using React Router with the following routes: '/' for the home page and '/tweets' for the tweets page. If a user accesses a non-existent route, they should be redirected to the home page.
 
-![Settings GitHub Actions permissions step 1](./assets/gh-actions-perm-1.png)
+## Project Structure
 
-Проскролив страницу до самого конца, в секции `«Workflow permissions»` выбери
-опцию `«Read and write permissions»` и поставь галочку в чекбоксе. Это
-необходимо для автоматизации процесса деплоя проекта.
+The project utilizes React for building the user interface, React Router for handling routing, Redux Toolkit for managing application state, and RTK Query for fetching data from the API.
 
-![Settings GitHub Actions permissions step 2](./assets/gh-actions-perm-2.png)
+src/components: Contains components such as TweetCard, Tweets, Home, NotFound. src/routes: Contains components for pages and routing configuration. src/store: Includes Redux Toolkit configuration and global application state.
 
-Теперь у тебя есть личный репозиторий проекта, со структурой файлов и папок
-репозитория-шаблона. Далее работай с ним как с любым другим личным репозиторием,
-клонируй его себе на компьютер, пиши код, делай коммиты и отправляй их на
-GitHub.
+Clone the repository to your local machine. Install dependencies by running npm install. Start the project by running npm start. Open your browser and go to http://localhost:3000.
 
-## Подготовка к работе
 
-1. Убедись что на компьютере установлена LTS-версия Node.js.
-   [Скачай и установи](https://nodejs.org/en/) её если необходимо.
-2. Установи базовые зависимости проекта командой `npm install`.
-3. Запусти режим разработки, выполнив команду `npm start`.
-4. Перейди в браузере по адресу [http://localhost:3000](http://localhost:3000).
-   Эта страница будет автоматически перезагружаться после сохранения изменений в
-   файлах проекта.
+## Technologies and Libraries
 
-## Деплой
+-React https://legacy.reactjs.org/docs/react-dom.html -Redux Toolkit https://redux-toolkit.js.org/tutorials/quick-start -RTK Query https://redux-toolkit.js.org/tutorials/rtk-query -React Router https://github.com/remix-run/react-router/tree/dev/examples
 
-Продакшн версия проекта будет автоматически проходить линтинг, собираться и
-деплоиться на GitHub Pages, в ветку `gh-pages`, каждый раз когда обновляется
-ветка `main`. Например, после прямого пуша или принятого пул-реквеста. Для этого
-необходимо в файле `package.json` отредактировать поле `homepage`, заменив
-`your_username` и `your_repo_name` на свои, и отправить изменения на GitHub.
+## Additional Guidelines
 
-```json
-"homepage": "https://your_username.github.io/your_repo_name/"
-```
-
-Далее необходимо зайти в настройки GitHub-репозитория (`Settings` > `Pages`) и
-выставить раздачу продакшн версии файлов из папки `/root` ветки `gh-pages`, если
-это небыло сделано автоматически.
-
-![GitHub Pages settings](./assets/repo-settings.png)
-
-### Статус деплоя
-
-Статус деплоя крайнего коммита отображается иконкой возле его идентификатора.
-
-- **Желтый цвет** - выполняется сборка и деплой проекта.
-- **Зеленый цвет** - деплой завершился успешно.
-- **Красный цвет** - во время линтинга, сборки или деплоя произошла ошибка.
-
-Более детальную информацию о статусе можно посмотреть кликнув по иконке, и в
-выпадающем окне перейти по ссылке `Details`.
-
-![Deployment status](./assets/deploy-status.png)
-
-### Живая страница
-
-Через какое-то время, обычно пару минут, живую страницу можно будет посмотреть
-по адресу указанному в отредактированном свойстве `homepage`. Например, вот
-ссылка на живую версию для этого репозитория
-[https://goitacademy.github.io/react-homework-template](https://goitacademy.github.io/react-homework-template).
-
-Если открывается пустая страница, убедись что во вкладке `Console` нет ошибок
-связанных с неправильными путями к CSS и JS файлам проекта (**404**). Скорее
-всего у тебя неправильное значение свойства `homepage` в файле `package.json`.
-
-### Маршрутизация
-
-Если приложение использует библиотеку `react-router-dom` для маршрутизации,
-необходимо дополнительно настроить компонент `<BrowserRouter>`, передав в пропе
-`basename` точное название твоего репозитория. Слеш в начале строки обязателен.
-
-```jsx
-<BrowserRouter basename="/your_repo_name">
-  <App />
-</BrowserRouter>
-```
-
-## Как это работает
-
-![How it works](./assets/how-it-works.png)
-
-1. После каждого пуша в ветку `main` GitHub-репозитория, запускается специальный
-   скрипт (GitHub Action) из файла `.github/workflows/deploy.yml`.
-2. Все файлы репозитория копируются на сервер, где проект инициализируется и
-   проходит линтинг и сборку перед деплоем.
-3. Если все шаги прошли успешно, собранная продакшн версия файлов проекта
-   отправляется в ветку `gh-pages`. В противном случае, в логе выполнения
-   скрипта будет указано в чем проблема.
+Add your own avatar images for each user. Replace the image URLs accordingly. Set up your own development backend using the mockapi.io service. Create a "users" resource with user objects as described in the task. Implement pagination to load the list of users in batches. Keep in mind that user data will only be modified locally on the client-side.
