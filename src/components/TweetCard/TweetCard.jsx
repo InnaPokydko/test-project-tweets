@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useUpdateFollowStatusMutation, useUpdateFollowersCountMutation } from 'redux/auth/operations';
 
 const TweetCard = ({ user }) => {
-  const { id, name, followersCount, followStatus } = user;
+  const { id, user: name, tweets, followers, avatar, followStatus } = user;
   const [updateFollowStatus] = useUpdateFollowStatusMutation();
   const [updateFollowersCount] = useUpdateFollowersCountMutation();
 
@@ -10,7 +10,7 @@ const TweetCard = ({ user }) => {
     try {
       if (followStatus) {
         await updateFollowStatus(id);
-        await updateFollowersCount(id);
+        await updateFollowersCount({ userId: id, followersCount: user.followers + 1 });
       } else {
         await updateFollowStatus(id);
       }
@@ -19,11 +19,20 @@ const TweetCard = ({ user }) => {
     }
   };
 
+  // Оновлення стану followStatus після виконання мутацій
+  useEffect(() => {
+    if (followStatus) {
+      updateFollowersCount({ userId: id, followersCount: user.followers + 1 });
+    }
+  }, [followStatus, id, user.followers, updateFollowersCount]);
+
   return (
     <div>
+      <img src={avatar} alt={name} style={{ width: '100px', height: '100px' }} />
       <h3>{name}</h3>
-      <p>Followers: {followersCount}</p>
-      <button onClick={handleFollowClick} style={{ backgroundColor: followStatus ? 'green' : 'blue' }}>
+      <p>Tweets: {tweets}</p>
+      <p>Followers: {followers}</p>
+      <button onClick={handleFollowClick} style={{ backgroundColor: followStatus ? 'green' : 'pink' }}>
         {followStatus ? 'Following' : 'Follow'}
       </button>
     </div>

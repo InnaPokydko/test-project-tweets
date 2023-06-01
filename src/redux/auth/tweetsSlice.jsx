@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const tweetsSlice = createSlice({
   name: 'tweets',
-  initialState: [],
+  initialState: { tweets: [] },
   reducers: {
     addTweet: (state, action) => {
       state.push(action.payload);

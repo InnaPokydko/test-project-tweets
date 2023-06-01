@@ -9,7 +9,7 @@ export const MainContainer = styled.div`
 
 export const Header = styled.header`
   display: flex;
-  height: 120px;
+  height: 80px;
    padding: 20px 60px;
    background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 //   background-size: cover;
@@ -22,7 +22,7 @@ width: 100%;
 display: flex;
 gap: 80px;
 justify-content: end;
-padding: 30px 60px 0 0;
+padding: 30px;
 `;
 
 export const Link = styled(RouterLink)`
