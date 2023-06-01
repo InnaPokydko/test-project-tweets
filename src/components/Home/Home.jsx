@@ -1,10 +1,11 @@
 import React from 'react';
+import { Container, Title } from './Home.styled';
 
 const Home = () => {
   return (
-    <div>
-      <h1>Welcome to Tweeter</h1>
-    </div>
+    <Container>
+      <Title>Welcome to Tweeter!</Title>
+    </Container>
   );
 };
 
