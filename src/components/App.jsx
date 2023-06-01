@@ -1,16 +1,22 @@
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { useUpdateFollowersCountMutation } from '../redux/auth/operations';
+import Home from './Home/Home';
+import Tweets from './Tweets/Tweets';
+import NotFound from './NotFound/NotFound';
+
 export const App = () => {
+  const { updateFollowersCount } = useUpdateFollowersCountMutation();
+
   return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101'
-      }}
-    >
-      React homework template
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route
+          path="/tweets"
+          element={<Tweets updateFollowersCount={updateFollowersCount} />}
+        />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Router>
   );
 };
