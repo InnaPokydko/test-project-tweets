@@ -1,31 +1,46 @@
 import React from 'react';
+import { FcHome } from 'react-icons/fc';
 import { useGetUsersQuery } from 'redux/auth/operations';
 import TweetCard from 'components/TweetCard/TweetCard';
-import { Link } from 'react-router-dom';
+import {
+  LoadingMessage,
+  ErrorMessage,
+  LoadMoreButton,
+  BackLink,
+  TweetsContainer,
+  CardContainer,
+} from './Tweets.styled';
 
 const Tweets = () => {
-  const { data: users, error, isLoading, hasNextPage, fetchNextPage } = useGetUsersQuery();
-  // const [visibleTweets, setVisibleTweets] = useState(3);
+  const {
+    data: users,
+    error,
+    isLoading,
+    hasNextPage,
+    fetchNextPage,
+  } = useGetUsersQuery();
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <LoadingMessage>Loading...</LoadingMessage>;
   }
 
   if (error) {
-    return <p>Waiting for new Tweets to be posted...</p>;
+    return <ErrorMessage>Waiting for new Tweets to be posted...</ErrorMessage>;
   }
 
   return (
-    <div>
-      <h1>Tweets</h1>
-      <div>
-      { users && users.map((user) =>  (
-          <TweetCard key={user.id} user={user} />
-        ))}
-      </div>
-      {hasNextPage && <button onClick={fetchNextPage}>Load More</button>}
-      <Link to="/">Back</Link>
-    </div>
+    <CardContainer>
+      <BackLink to="/">
+        <FcHome style={{ marginRight: '10px' }} size={30}></FcHome>
+        Back to home
+      </BackLink>
+      <TweetsContainer>
+        {users && users.map(user => <TweetCard key={user.id} user={user} />)}
+      </TweetsContainer>
+      {hasNextPage && (
+        <LoadMoreButton onClick={fetchNextPage}>Load More</LoadMoreButton>
+      )}
+    </CardContainer>
   );
 };
 

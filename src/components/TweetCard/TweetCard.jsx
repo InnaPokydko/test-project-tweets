@@ -1,5 +1,20 @@
 import React, { useEffect } from 'react';
-import { useUpdateFollowStatusMutation, useUpdateFollowersCountMutation } from 'redux/auth/operations';
+import {
+  useUpdateFollowStatusMutation,
+  useUpdateFollowersCountMutation,
+} from 'redux/auth/operations';
+import {
+  CardContainer,
+  CardBox,
+  LogoImage,
+  TweetImage,
+  AvatarImage,
+  Title,
+  TweetCount,
+  FollowersCount,
+  FollowButton,
+  FollowButtonText,
+} from './TweetCard.styled';
 
 const TweetCard = ({ user }) => {
   const { id, user: name, tweets, followers, avatar, followStatus } = user;
@@ -10,7 +25,10 @@ const TweetCard = ({ user }) => {
     try {
       if (followStatus) {
         await updateFollowStatus(id);
-        await updateFollowersCount({ userId: id, followersCount: user.followers + 1 });
+        await updateFollowersCount({
+          userId: id,
+          followersCount: user.followers + 1,
+        });
       } else {
         await updateFollowStatus(id);
       }
@@ -19,7 +37,6 @@ const TweetCard = ({ user }) => {
     }
   };
 
-  // Оновлення стану followStatus після виконання мутацій
   useEffect(() => {
     if (followStatus) {
       updateFollowersCount({ userId: id, followersCount: user.followers + 1 });
@@ -27,15 +44,21 @@ const TweetCard = ({ user }) => {
   }, [followStatus, id, user.followers, updateFollowersCount]);
 
   return (
-    <div>
-      <img src={avatar} alt={name} style={{ width: '100px', height: '100px' }} />
-      <h3>{name}</h3>
-      <p>Tweets: {tweets}</p>
-      <p>Followers: {followers}</p>
-      <button onClick={handleFollowClick} style={{ backgroundColor: followStatus ? 'green' : 'pink' }}>
-        {followStatus ? 'Following' : 'Follow'}
-      </button>
-    </div>
+    <CardContainer>
+      <CardBox>
+        <LogoImage src="path/to/logo.png" alt="Logo" />
+        <TweetImage src="path/to/tweet.png" alt="Tweet" />
+        <AvatarImage src={avatar} alt={name} />
+        <Title>{name}</Title>
+        <TweetCount>Tweets: {tweets}</TweetCount>
+        <FollowersCount>{followers} Followers</FollowersCount>
+        <FollowButton onClick={handleFollowClick} followStatus={followStatus}>
+          <FollowButtonText>
+            {followStatus ? 'Following' : 'Follow'}
+          </FollowButtonText>
+        </FollowButton>
+      </CardBox>
+    </CardContainer>
   );
 };
 
