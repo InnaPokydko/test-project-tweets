@@ -1,22 +1,23 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useUpdateFollowersCountMutation } from '../redux/auth/operations';
 import Home from './Home/Home';
+import Layout from './Layout/Layout';
 import Tweets from './Tweets/Tweets';
-import NotFound from './NotFound/NotFound';
 
-export const App = () => {
+const App = () => {
   const { updateFollowersCount } = useUpdateFollowersCountMutation();
 
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route
-          path="/tweets"
-          element={<Tweets updateFollowersCount={updateFollowersCount} />}
-        />
-        <Route path="*" element={<NotFound />} />
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="tweets" element={<Tweets updateFollowersCount={updateFollowersCount} />} />
+        </Route>
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
   );
 };
+
+export default App;
