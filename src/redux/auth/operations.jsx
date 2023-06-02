@@ -5,19 +5,19 @@ export const usersApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'https://6463b2fa043c103502aa080d.mockapi.io' }),
   endpoints: (builder) => ({
     getUsers: builder.query({
-      query: () => '/tweets',
+      query: (page = 1) => `/tweets?page=${page}`,
     }),
     updateFollowStatus: builder.mutation({
       query: (userId) => ({
         url: `/tweets/${userId}`, 
-        method: 'PUT',
+        method: 'PATCH',
         body: { followStatus: true },
       }),
     }),
     updateFollowersCount: builder.mutation({
       query: (userId) => ({
         url: `/tweets/${userId}`, 
-        method: 'PUT',
+        method: 'POST',
         body: (data) => ({
           followersCount: data.user.followersCount + 1, 
         }),

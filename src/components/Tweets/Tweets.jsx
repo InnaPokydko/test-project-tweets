@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect} from 'react';
 import { FcHome } from 'react-icons/fc';
 import { useGetUsersQuery } from 'redux/auth/operations';
 import TweetCard from 'components/TweetCard/TweetCard';
@@ -12,22 +12,29 @@ import {
   Section,
 } from './Tweets.styled';
 
-const Tweets = () => {
-  const {
-    data: users,
-    error,
-    isLoading,
-    hasNextPage,
-    fetchNextPage,
-  } = useGetUsersQuery();
+const PER_PAGE = 12;
 
-  if (isLoading) {
+const Tweets = () => {
+  const [page, setPage] = useState(1);
+  const { data: users, error, isLoading, isFetching } = useGetUsersQuery(page);
+
+  useEffect(() => {
+    setPage(1);
+  }, []);
+
+  if (isLoading && page === 1) {
     return <LoadingMessage>Loading...</LoadingMessage>;
   }
 
-  if (error) {
+  if (error && page === 1) {
     return <ErrorMessage>Waiting for new Tweets to be posted...</ErrorMessage>;
   }
+
+  const handleLoadMore = () => {
+    setPage(prevPage => prevPage + 1);
+  };
+
+  const displayedUsers = users ? users.slice(0, page * PER_PAGE) : [];
 
   return (
     <Section>
@@ -36,15 +43,19 @@ const Tweets = () => {
         Back to home
       </BackLink>
       <CardContainer>
-            <TweetsContainer>
-        {users && users.map(user => <TweetCard key={user.id} user={user} />)}
-      </TweetsContainer>
-      {hasNextPage && (
-        <LoadMoreButton onClick={fetchNextPage}>Load More</LoadMoreButton>
-      )}
-    </CardContainer>
+        <TweetsContainer>
+          {displayedUsers.map(user => (
+            <TweetCard key={user.id} user={user} />
+          ))}
+        </TweetsContainer>
+        {!isFetching && displayedUsers.length < users.length && (
+          <LoadMoreButton onClick={handleLoadMore}>
+            Load More
+          </LoadMoreButton>
+        )}
+      </CardContainer>
     </Section>
-     );
+  );
 };
 
 export default Tweets;

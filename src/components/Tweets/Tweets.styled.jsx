@@ -39,7 +39,7 @@ export const LoadMoreButton = styled.button`
   display: block;
   margin: 20px auto;
   padding: 10px 20px;
-  background-color: #614385;
+  background-color: #7BC6CC;
   border: none;
   border-radius: 5px;
   font-family: 'Montserrat';
@@ -49,7 +49,7 @@ export const LoadMoreButton = styled.button`
   text-transform: uppercase;
   cursor: pointer;
   &:hover {
-    box-shadow: 0px 3.43693px 3.43693px rgba(0, 0, 0, 0.25);
+    background-image: linear-gradient(to right, #BE93C5 0%, #7BC6CC 51%, #BE93C5 100%);
   }
 `;
 
