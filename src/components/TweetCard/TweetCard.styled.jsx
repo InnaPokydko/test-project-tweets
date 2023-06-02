@@ -5,7 +5,7 @@ export const CardContainer = styled.div`
   width: 380px;
   height: 460px;
   margin-bottom: 20px;
-  padding: 0 90px;
+  padding: 20;
   background: linear-gradient(
     114.99deg,
     #471ca9 -0.99%,

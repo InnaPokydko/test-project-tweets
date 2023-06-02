@@ -9,12 +9,43 @@ export const ErrorMessage = styled.p`
   margin: 20px;
 `;
 
+export const Section = styled.div`
+max-width: 1600px;
+min-width: 320px;
+padding-left: 15px;
+padding-right: 15px;
+margin-left: auto;
+margin-right: auto;
+}
+@media screen and (min-width: 480px) {
+.container {
+  width: 480px;
+}
+}
+@media screen and (min-width: 768px) {
+.container {
+  width: 768px;
+}
+}
+@media screen and (min-width: 1200px) {
+.container {
+  width: 1200px;
+}
+ `;
+
+export const CardContainer = styled.div`
+;
+ `;
 export const TweetsContainer = styled.div`
 display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   gap: 48px;
+
+  > div {
+    flex-basis: calc((100% - 96px) / 2);
+  }
  `;
 
 export const LoadMoreButton = styled.button`
@@ -35,15 +66,8 @@ export const LoadMoreButton = styled.button`
 export const BackLink = styled(Link)`
   display: block;
   margin-top: 20px;
+  margin-bottom: 40px;
   color:  #614385;
   text-decoration: none;
 `;
 
-export const CardContainer = styled.div`
-display: flex;
-flex-direction: column;
-padding: 20px;
-gap: 48px;
-width: 100%; 
-
- `;

@@ -9,6 +9,7 @@ import {
   BackLink,
   TweetsContainer,
   CardContainer,
+  Section,
 } from './Tweets.styled';
 
 const Tweets = () => {
@@ -29,19 +30,21 @@ const Tweets = () => {
   }
 
   return (
-    <CardContainer>
+    <Section>
       <BackLink to="/">
         <FcHome style={{ marginRight: '10px' }} size={30}></FcHome>
         Back to home
       </BackLink>
-      <TweetsContainer>
+      <CardContainer>
+            <TweetsContainer>
         {users && users.map(user => <TweetCard key={user.id} user={user} />)}
       </TweetsContainer>
       {hasNextPage && (
         <LoadMoreButton onClick={fetchNextPage}>Load More</LoadMoreButton>
       )}
     </CardContainer>
-  );
+    </Section>
+     );
 };
 
 export default Tweets;
