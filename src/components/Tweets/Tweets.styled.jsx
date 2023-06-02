@@ -12,47 +12,34 @@ export const ErrorMessage = styled.p`
 export const Section = styled.div`
 max-width: 1600px;
 min-width: 320px;
-padding-left: 15px;
-padding-right: 15px;
+padding: 15px;
 margin-left: auto;
 margin-right: auto;
-}
-@media screen and (min-width: 480px) {
-.container {
-  width: 480px;
-}
-}
-@media screen and (min-width: 768px) {
-.container {
-  width: 768px;
-}
-}
-@media screen and (min-width: 1200px) {
-.container {
-  width: 1200px;
-}
- `;
+
+} `;
 
 export const CardContainer = styled.div`
-;
- `;
-export const TweetsContainer = styled.div`
 display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
-  gap: 48px;
-
-  > div {
-    flex-basis: calc((100% - 96px) / 2);
-  }
+  flex-direction: column;
  `;
+ export const TweetsContainer = styled.div`
+ display: grid;
+ justify-content: center;
+ grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+ align-items: center;
+ gap: 48px;
+ margin-left: auto;
+ margin-right: auto;
+ padding: auto 40px;
+ max-width: 1200px;
+`;
 
 export const LoadMoreButton = styled.button`
   display: block;
   margin: 20px auto;
   padding: 10px 20px;
-  background-color: #EBD8FF;
+  background-color: #614385;
   border: none;
   border-radius: 5px;
   font-family: 'Montserrat';
@@ -61,6 +48,9 @@ export const LoadMoreButton = styled.button`
   line-height: 20px;
   text-transform: uppercase;
   cursor: pointer;
+  &:hover {
+    box-shadow: 0px 3.43693px 3.43693px rgba(0, 0, 0, 0.25);
+  }
 `;
 
 export const BackLink = styled(Link)`

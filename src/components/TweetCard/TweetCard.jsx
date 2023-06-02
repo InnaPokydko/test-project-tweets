@@ -3,11 +3,14 @@ import {
   useUpdateFollowStatusMutation,
   useUpdateFollowersCountMutation,
 } from 'redux/auth/operations';
+import tweet from '../../images/tweet2.png';
+import logo from '../../images/logo.png';
 import {
   CardContainer,
   CardBox,
   LogoImage,
   TweetImage,
+  Line,
   AvatarImage,
   Title,
   TweetCount,
@@ -46,8 +49,9 @@ const TweetCard = ({ user }) => {
   return (
     <CardContainer>
       <CardBox>
-        <LogoImage src="path/to/logo.png" alt="Logo" />
-        <TweetImage src="path/to/tweet.png" alt="Tweet" />
+        <LogoImage src={logo} alt="Logo" width="72" height="22"/>
+        <TweetImage src={tweet} alt="Tweet"  width="290" height="140"/>
+        <Line></Line>
         <AvatarImage src={avatar} alt={name} />
         <Title>{name}</Title>
         <TweetCount>Tweets: {tweets}</TweetCount>
