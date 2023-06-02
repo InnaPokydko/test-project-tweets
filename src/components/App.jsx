@@ -1,4 +1,8 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+ } from 'react-router-dom';
 import { useUpdateFollowersCountMutation } from '../redux/auth/operations';
 import Home from './Home/Home';
 import Layout from './Layout/Layout';
@@ -13,9 +17,12 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path="tweets" element={<Tweets updateFollowersCount={updateFollowersCount} />} />
+          <Route
+            path="tweets"
+            element={<Tweets updateFollowersCount={updateFollowersCount} />}
+          />
         </Route>
-        <Route path="*" element={<NotFound />} />
+        <Route path="/*" element={<NotFound />} />
       </Routes>
     </Router>
   );

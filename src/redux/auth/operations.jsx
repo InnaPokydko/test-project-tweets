@@ -3,15 +3,16 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const usersApi = createApi({
   reducerPath: 'usersApi',
   baseQuery: fetchBaseQuery({ baseUrl: 'https://6463b2fa043c103502aa080d.mockapi.io' }),
+  tagTypes: ['Post'],
   endpoints: (builder) => ({
     getUsers: builder.query({
       query: (page = 1) => `/tweets?page=${page}`,
     }),
     updateFollowStatus: builder.mutation({
-      query: (userId) => ({
+      query: ({ userId, ...patch }) => ({
         url: `/tweets/${userId}`, 
-        method: 'PATCH',
-        body: { followStatus: true },
+        method: 'PUT',
+        body: { patch },
       }),
     }),
     updateFollowersCount: builder.mutation({
