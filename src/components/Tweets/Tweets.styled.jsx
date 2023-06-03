@@ -61,3 +61,14 @@ export const BackLink = styled(Link)`
   text-decoration: none;
 `;
 
+export const FilterDropdown = styled.select`
+display: block;
+width: 300px;
+margin: 0 auto 20px;
+padding: 10px;
+border: 1px solid #ccc;
+border-radius: 5px;
+color: #614385;
+font-size: 18px;
+font-weight: 400;
+`;
