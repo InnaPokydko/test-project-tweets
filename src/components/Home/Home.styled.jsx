@@ -7,7 +7,7 @@ export const Container = styled.div`
 `;
 
 export const Title = styled.h1`
-  color: #614385;
+  color: #2962ff;
   font-size: 45px;
   font-weight: 700px;
   padding: 60px;
