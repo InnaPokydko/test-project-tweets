@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { FcHome } from 'react-icons/fc';
 import { useGetUsersQuery } from 'redux/auth/operations';
 import TweetCard from 'components/TweetCard/TweetCard';
+import Loader from 'components/Loader';
 import {
-  LoadingMessage,
+  // LoadingMessage,
   ErrorMessage,
   LoadMoreButton,
   BackLink,
@@ -25,7 +26,7 @@ const Tweets = () => {
   }, [filter]);
 
   if (isLoading && page === 1) {
-    return <LoadingMessage>Loading...</LoadingMessage>;
+    return <Loader>Loading...</Loader>;
   }
 
   if (error && page === 1) {

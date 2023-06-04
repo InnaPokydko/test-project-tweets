@@ -10,16 +10,17 @@ export const Header = styled.header`
   display: flex;
   height: 80px;
   padding: 20px 50px;
-  background-image: url( https://img.freepik.com/premium-vector/abstract-background-with-twitter-logo_52683-26641.jpg);
-  // background-image: linear-gradient(
-  //   to right,
-  //   #614385 0%,
+  background-image: linear-gradient(to right, #4568DC 0%, #B06AB3 51%, #4568DC 100%);
+  // background-image: url( https://img.freepik.com/premium-vector/abstract-background-with-twitter-logo_52683-26641.jpg);
+  //  background-image: linear-gradient(
+  //    to right,
+  //    #614385 0%,
   //   #516395 51%,
-  //   #614385 100%
-  );
-    background-size: cover;
-    background-position: 50% 90%;
-    background-repeat: no-repeat;
+  //    #614385 100%
+  // );
+    // background-size: cover;
+    // background-position: 50% 90%;
+    // background-repeat: no-repeat;
 `;
 
 export const HeaderBox = styled.ul`

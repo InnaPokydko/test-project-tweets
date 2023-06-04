@@ -3,7 +3,12 @@ import styled from '@emotion/styled';
 export const Container = styled.div`
   margin: 20px;
   display: flex;
-  justify-content: center;
+  min-height: 700px;
+  justify-content: end;
+  background-image: url( https://www.spiderindia.com/img/web/twitter.png);
+  background-size: cover;
+  // background-position: 50% 90%;
+  background-repeat: no-repeat;
 `;
 
 export const Title = styled.h1`

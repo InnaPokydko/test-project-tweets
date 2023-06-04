@@ -15,7 +15,7 @@ min-width: 320px;
 padding: 15px;
 margin-left: auto;
 margin-right: auto;
-
+background: #ebd8ff;
 } `;
 
 export const CardContainer = styled.div`
