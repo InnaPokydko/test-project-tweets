@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { FcHome } from 'react-icons/fc';
 import {
   useGetUsersQuery,
-  useToggleFollowMutation,
+  useUpdateFollowStatusMutation,
 } from 'redux/auth/operations';
 import TweetCard from 'components/TweetCard/TweetCard';
 import Loader from 'components/Loader';
@@ -24,7 +24,7 @@ const Tweets = () => {
   const { data: users, error, isLoading } = useGetUsersQuery(page);
   const [allUsers, setAllUsers] = useState([]);
   const [displayedUsers, setDisplayedUsers] = useState([]);
-  const [toggleFollow] = useToggleFollowMutation();
+  const [updateFollowStatus] = useUpdateFollowStatusMutation();
 
   const filterUsers = useCallback(
     (users) => {
@@ -59,11 +59,14 @@ const Tweets = () => {
       setAllUsers(users);
       const filtered = filterUsers(users);
       setDisplayedUsers(filtered.slice(0, page * PER_PAGE));
+
+      // Зберегти оновлені дані користувачів в localStorage
+      localStorage.setItem('users', JSON.stringify(users));
     }
   }, [users, filter, page, filterUsers]);
 
   const handleFollowToggle = async (userId, followStatus) => {
-    await toggleFollow({ userId, followStatus });
+    await updateFollowStatus({ userId, followStatus });
     const updatedUsers = allUsers.map((user) => {
       if (user.id === userId) {
         return {
@@ -79,6 +82,9 @@ const Tweets = () => {
     setAllUsers(updatedUsers);
     const filtered = filterUsers(updatedUsers);
     setDisplayedUsers(filtered.slice(0, page * PER_PAGE));
+
+    // Зберегти оновлені дані користувачів в localStorage
+    localStorage.setItem('users', JSON.stringify(updatedUsers));
   };
 
   const handleLoadMore = () => {
@@ -134,8 +140,6 @@ const Tweets = () => {
 };
 
 export default Tweets;
-
-
 
 
 

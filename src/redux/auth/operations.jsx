@@ -13,8 +13,21 @@ export const usersApi = createApi({
         url: `/tweets/${userId}`,
         method: 'PUT',
         body: { followStatus },
+        async onQueryStarted({ id, ...patch }, { dispatch, queryFulfilled }) {
+          const patchResult = dispatch(
+            usersApi.util.updateQueryData('getPost', id, (draft) => {
+              Object.assign(draft, patch);
+            })
+          );
+          try {
+            await queryFulfilled();
+          } catch {
+            patchResult.undo();
+          }
+        },
       }),
     }),
+    
     updateFollowersCount: builder.mutation({
       query: (userId, increment) => ({
         url: `/tweets/${userId}`,
