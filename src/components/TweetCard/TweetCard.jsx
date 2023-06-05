@@ -34,10 +34,10 @@ const TweetCard = ({ user }) => {
           userId: id,
           followersCount: followerCount + 1,
         });
-        setFollowerCount((prevCount) => prevCount + 1);
+        setFollowerCount((prevCount) => prevCount - 1);
       } else {
         await updateFollowStatus(id);
-        setFollowerCount((prevCount) => prevCount - 1);
+        setFollowerCount((prevCount) => prevCount + 1);
       }
       setIsFollowing((prevFollowing) => !prevFollowing);
     } catch (error) {

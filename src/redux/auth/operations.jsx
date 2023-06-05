@@ -8,20 +8,25 @@ export const usersApi = createApi({
     getUsers: builder.query({
       query: (page = 1) => `/tweets?page=${page}`,
     }),
-    updateFollowStatus: builder.mutation({
-      query: ({ userId, ...patch }) => ({
-        url: `/tweets/${userId}`, 
+    toggleFollow: builder.mutation({
+      query: ({ userId, followStatus }) => ({
+        url: `/tweets/${userId}`,
         method: 'PUT',
-        body: { patch },
+        body: { followStatus },
       }),
     }),
     updateFollowersCount: builder.mutation({
-      query: (userId) => ({
-        url: `/tweets/${userId}`, 
-        method: 'POST',
-        body: (data) => ({
-          followersCount: data.user.followersCount + 1, 
-        }),
+      query: (userId, increment) => ({
+        url: `/tweets/${userId}`,
+        method: 'PATCH',
+        body: { increment },
+      }),
+    }),
+    updateFollowStatus: builder.mutation({
+      query: (userId, followStatus) => ({
+        url: `/tweets/${userId}`,
+        method: 'PATCH',
+        body: { followStatus },
       }),
     }),
   }),
@@ -29,8 +34,9 @@ export const usersApi = createApi({
 
 export const {
   useGetUsersQuery,
-  useUpdateFollowStatusMutation,
+  useToggleFollowMutation,
   useUpdateFollowersCountMutation,
+  useUpdateFollowStatusMutation,
 } = usersApi;
 
 
