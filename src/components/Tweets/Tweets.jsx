@@ -4,7 +4,6 @@ import { useGetUsersQuery } from 'redux/auth/operations';
 import TweetCard from 'components/TweetCard/TweetCard';
 import Loader from 'components/Loader';
 import {
-  // LoadingMessage,
   ErrorMessage,
   LoadMoreButton,
   BackLink,
@@ -19,7 +18,31 @@ const PER_PAGE = 12;
 const Tweets = () => {
   const [page, setPage] = useState(1);
   const [filter, setFilter] = useState('all');
-  const { data: users, error, isLoading, isFetching } = useGetUsersQuery(page);
+  const { data: users, error, isLoading } = useGetUsersQuery(page);
+  const [filteredUsers, setFilteredUsers] = useState([]);
+
+  useEffect(() => {
+    const savedFilter = localStorage.getItem('filter');
+    const savedPage = localStorage.getItem('page');
+    if (savedFilter) {
+      setFilter(savedFilter);
+    }
+    if (savedPage) {
+      setPage(parseInt(savedPage));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('filter', filter);
+    localStorage.setItem('page', page.toString());
+  }, [filter, page]);
+
+  useEffect(() => {
+    if (users) {
+      const filtered = filterUsers(users);
+      setFilteredUsers(filtered);
+    }
+  }, [users, filter]);
 
   useEffect(() => {
     setPage(1);
@@ -39,14 +62,15 @@ const Tweets = () => {
 
   const filterUsers = (users) => {
     if (filter === 'follow') {
-      return users.filter(user => user.followStatus);
-    } else if (filter === 'following') {
       return users.filter(user => !user.followStatus);
+    } else if (filter === 'following') {
+      return users.filter(user => user.followStatus);
     }
     return users;
   };
 
-  const displayedUsers = users ? filterUsers(users).slice(0, page * PER_PAGE) : [];
+  const displayedUsers = filteredUsers.slice(0, page * PER_PAGE);
+  const isLoadMoreVisible = displayedUsers.length < filteredUsers.length && displayedUsers.length > 0;
 
   return (
     <Section>
@@ -68,7 +92,7 @@ const Tweets = () => {
             <TweetCard key={user.id} user={user} />
           ))}
         </TweetsContainer>
-        {!isFetching && displayedUsers.length < users.length && (
+        {isLoadMoreVisible && (
           <LoadMoreButton onClick={handleLoadMore}>
             Load More
           </LoadMoreButton>
@@ -79,7 +103,6 @@ const Tweets = () => {
 };
 
 export default Tweets;
-
 
 
 
