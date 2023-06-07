@@ -27,11 +27,11 @@ const Tweets = () => {
   const [updateFollowStatus] = useUpdateFollowStatusMutation();
 
   const filterUsers = useCallback(
-    (users) => {
+    users => {
       if (filter === 'follow') {
-        return users.filter((user) => !user.followStatus);
+        return users.filter(user => !user.followStatus);
       } else if (filter === 'following') {
-        return users.filter((user) => user.followStatus);
+        return users.filter(user => user.followStatus);
       }
       return users;
     },
@@ -60,14 +60,13 @@ const Tweets = () => {
       const filtered = filterUsers(users);
       setDisplayedUsers(filtered.slice(0, page * PER_PAGE));
 
-      // Зберегти оновлені дані користувачів в localStorage
       localStorage.setItem('users', JSON.stringify(users));
     }
   }, [users, filter, page, filterUsers]);
 
   const handleFollowToggle = async (userId, followStatus) => {
     await updateFollowStatus({ userId, followStatus });
-    const updatedUsers = allUsers.map((user) => {
+    const updatedUsers = allUsers.map(user => {
       if (user.id === userId) {
         return {
           ...user,
@@ -83,15 +82,14 @@ const Tweets = () => {
     const filtered = filterUsers(updatedUsers);
     setDisplayedUsers(filtered.slice(0, page * PER_PAGE));
 
-    // Зберегти оновлені дані користувачів в localStorage
     localStorage.setItem('users', JSON.stringify(updatedUsers));
   };
 
   const handleLoadMore = () => {
-    setPage((prevPage) => prevPage + 1);
+    setPage(prevPage => prevPage + 1);
   };
 
-  const handleFilterChange = (e) => {
+  const handleFilterChange = e => {
     setFilter(e.target.value);
     setPage(1);
   };
@@ -100,14 +98,29 @@ const Tweets = () => {
   const isLoadMoreVisible =
     displayedUsers.length < filteredUsers.length && displayedUsers.length > 0;
 
+  useEffect(() => {
+    const savedUsers = localStorage.getItem('users');
+    if (savedUsers) {
+      setAllUsers(JSON.parse(savedUsers));
+    }
+  }, []);
+
+  useEffect(() => {
+    const filtered = filterUsers(allUsers);
+    setDisplayedUsers(filtered.slice(0, page * PER_PAGE));
+  }, [allUsers, filter, page, filterUsers]);
+
+  useEffect(() => {
+    // Зберегти оновлені дані користувачів в localStorage
+    localStorage.setItem('users', JSON.stringify(allUsers));
+  }, [allUsers]);
+
   if (isLoading && page === 1) {
     return <Loader>Loading...</Loader>;
   }
 
   if (error && page === 1) {
-    return (
-      <ErrorMessage>Waiting for new Tweets to be posted...</ErrorMessage>
-    );
+    return <ErrorMessage>Waiting for new Tweets to be posted...</ErrorMessage>;
   }
 
   return (
@@ -123,7 +136,7 @@ const Tweets = () => {
           <option value="following">Following</option>
         </FilterDropdown>
         <TweetsContainer>
-          {displayedUsers.map((user) => (
+          {displayedUsers.map(user => (
             <TweetCard
               key={user.id}
               user={user}
@@ -140,9 +153,6 @@ const Tweets = () => {
 };
 
 export default Tweets;
-
-
-
 
 // import React, { useState, useEffect } from 'react';
 // import { FcHome } from 'react-icons/fc';
